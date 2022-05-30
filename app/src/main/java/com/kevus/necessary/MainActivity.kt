@@ -10,6 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.kevus.necessary.models.getTestTaskList
+import com.kevus.necessary.screens.OverviewScreen
 import com.kevus.necessary.ui.theme.NecessaryTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    OverviewScreen(TaskList = getTestTaskList())
                 }
             }
         }

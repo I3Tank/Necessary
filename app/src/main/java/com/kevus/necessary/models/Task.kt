@@ -49,6 +49,22 @@ fun getTestTaskList() : List<Task>{
             TaskIsDone = false
         ),
         Task(
+            TaskName = "Gaming",
+            TaskDate = LocalDateTime.of(2022, 4, 19, 14,30),
+            TaskDuration = 300,
+            TaskDescription = "Game with da bois",
+            TaskTags = listOf(Tag("Essential"), Tag("ExtraLong")),
+            TaskIsDone = false
+        ),
+        Task(
+            TaskName = "Gaming",
+            TaskDate = LocalDateTime.of(2022, 4, 19, 14,30),
+            TaskDuration = 300,
+            TaskDescription = "Game with da bois",
+            TaskTags = listOf(Tag("Essential"), Tag("ExtraLong")),
+            TaskIsDone = false
+        ),
+        Task(
             TaskName = "Schlafen",
             TaskDate = LocalDateTime.of(2022, 4, 19, 8,45),
             TaskDuration = 15,
