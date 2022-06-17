@@ -1,6 +1,8 @@
 package com.kevus.necessary.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -40,8 +42,10 @@ fun TaskListScreen(navController: NavController, taskViewModel: TaskViewModel) {
         bottomBar = {
             BottomNavBar(navController = navController)
         }
-    ) {
-        MainContent(navController = navController, taskViewModel = taskViewModel)
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            MainContent(navController = navController, taskViewModel = taskViewModel)
+        }
     }
 }
 

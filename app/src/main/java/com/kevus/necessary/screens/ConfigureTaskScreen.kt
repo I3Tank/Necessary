@@ -76,7 +76,7 @@ fun ShowAddTaskMenu(navController: NavController, taskViewModel: TaskViewModel) 
         // Declaring a string value to
         // store date in string format
         val displayDate = remember { mutableStateOf("$mDay/${mMonth + 1}/$mYear") }
-        val mDate = remember { mutableStateOf(0L) }
+        val mDate = remember { mutableStateOf(mCalendar.timeInMillis) }
         // Declaring DatePickerDialog and setting
         // initial values as current values (present year, month and day)
         val mDatePickerDialog = DatePickerDialog(

@@ -46,11 +46,13 @@ fun OverviewScreen(navController: NavController, taskViewModel: TaskViewModel) {
         bottomBar = {
             BottomNavBar(navController = navController)
         }
-    ) {
-        if (overviewMode) {
-            ShowDayOverview(taskViewModel = taskViewModel, navController = navController)
-        } else {
-            ShowWeeklyOverview(taskViewModel = taskViewModel)
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)){
+            if (overviewMode) {
+                ShowDayOverview(taskViewModel = taskViewModel, navController = navController)
+            } else {
+                ShowWeeklyOverview(taskViewModel = taskViewModel)
+            }
         }
     }
 }
