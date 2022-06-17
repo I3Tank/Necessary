@@ -9,7 +9,7 @@ import com.kevus.necessary.models.Task
 
 @Database(
     entities = [Task::class], //add entities here
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class TasksDB: RoomDatabase(){

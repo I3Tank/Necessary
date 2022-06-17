@@ -16,80 +16,84 @@ data class Task(
     val id: Long? = null,
 
     val TaskName: String,
-    val TaskDate: String,
+    ////Format: yyyy-mm-dd, 2022-06-13
+    ////TaskDate Format = yyyy-mm-ddThh:mm
+    //val TaskDate: String,
+    val TaskDate: Long,
+    //Format: hh:mm
+    val TaskTime: String,
     val TaskDuration: Int,
     val TaskDescription: String,
-    //val TaskTags: List<Tag>,
+    //Format: tagName-tagName-...
+    val TaskTags: String? = null,
     val TaskIsDone: Boolean
 )
-
+var calendar: Calendar = Calendar.getInstance()
 @Composable
 fun getTestTask(): Task {
+    calendar.set(2022, 6, 13)
     return Task(
         TaskName = "Self Care",
-        //TaskDate = LocalDateTime.of(2022, 4, 19, 21,0),
-        //TaskDate = "2022-05-06T21:00",
-        TaskDate = "2016-12-08T22:20",
+        //TaskDate = "2022-06-13",
+        TaskDate = calendar.timeInMillis,
+        TaskTime = "22:20",
         TaskDuration = 90,
         TaskDescription = "Use the black mask",
-        //TaskTags = listOf(Tag("Essential"), Tag("Long")),
+        TaskTags = "testTag1-testTag2",
         TaskIsDone = false
     )
 }
 
-@Composable
-fun getTestTaskList() : List<Task>{
-    return listOf(
-        Task(
-            TaskName = "Self Care",
-//            TaskDate = LocalDateTime.of(2022, 4, 19, 21,0),
-            TaskDate = "2016-12-08T22:20",
-            TaskDuration = 90,
-            TaskDescription = "Use the black mask",
-//            TaskTags = listOf(Tag("Essential"), Tag("Long")),
-            TaskIsDone = false
-        ),
-        Task(
-            TaskName = "Gaming",
-//            TaskDate = LocalDateTime.of(2022, 4, 19, 14,30),
-            TaskDate = "2016-12-08T22:20",
-            TaskDuration = 300,
-            TaskDescription = "Game with da bois",
-//            TaskTags = listOf(Tag("Essential"), Tag("ExtraLong")),
-            TaskIsDone = false
-        ),
+//@Composable
+//fun getTestTaskList() : List<Task>{
+//    return listOf(
 //        Task(
-//            TaskName = "Gaming",
-//            TaskDate = LocalDateTime.of(2022, 4, 19, 14,30),
-//            TaskDuration = 300,
-//            TaskDescription = "Game with da bois",
-//            TaskTags = listOf(Tag("Essential"), Tag("ExtraLong")),
+//            TaskName = "Breakfast",
+//            TaskDate = "2022-06-13",
+//            TaskTime = "09:45",
+//            TaskDuration = 45,
+//            TaskDescription = "Make and eat breakfast",
+//            TaskIsDone = false
+//        ),
+//        Task(
+//            TaskName = "Homework",
+//            TaskDate = "2022-06-13",
+//            TaskTime = "12:45",
+//            TaskDuration = 90,
+//            TaskDescription = "Do math homework",
 //            TaskIsDone = false
 //        ),
 //        Task(
 //            TaskName = "Gaming",
-//            TaskDate = LocalDateTime.of(2022, 4, 19, 14,30),
-//            TaskDuration = 300,
-//            TaskDescription = "Game with da bois",
-//            TaskTags = listOf(Tag("Essential"), Tag("ExtraLong")),
+//            TaskDate = "2022-06-13",
+//            TaskTime = "20:45",
+//            TaskDuration = 120,
+//            TaskDescription = "Gaming with the bois",
 //            TaskIsDone = false
 //        ),
 //        Task(
-//            TaskName = "Schlafen",
-//            TaskDate = LocalDateTime.of(2022, 4, 19, 8,45),
-//            TaskDuration = 15,
-//            TaskDescription = " ",
-//            TaskTags = listOf(Tag("Not important"), Tag("Short")),
+//            TaskName = "Breakfast2",
+//            TaskDate = "2022-06-14",
+//            TaskTime = "09:45",
+//            TaskDuration = 45,
+//            TaskDescription = "Make and eat breakfast",
 //            TaskIsDone = false
 //        ),
 //        Task(
-//            TaskName = "FH",
-//            TaskDate = LocalDateTime.of(2022, 4, 19, 12,45),
-//            TaskDuration = 60,
-//            TaskDescription = "In this task we will try to improve our work flow. And also this is a veeeeeeeeeeery long task description for our not so long taaaaaaaaaaaask.",
-//            TaskTags = listOf(Tag("Not important"), Tag("Short")),
+//            TaskName = "Breakfast",
+//            TaskDate = "2022-06-15",
+//            TaskTime = "10:45",
+//            TaskDuration = 45,
+//            TaskDescription = "Make and eat breakfast",
 //            TaskIsDone = false
-//        )
-
-    )
-}
+//        ),
+//        Task(
+//            TaskName = "Meal",
+//            TaskDate = "2022-06-16",
+//            TaskTime = "12:45",
+//            TaskDuration = 45,
+//            TaskDescription = "Make and eat breakfast",
+//            TaskIsDone = false
+//        ),
+//    )
+//}

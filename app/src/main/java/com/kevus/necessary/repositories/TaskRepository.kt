@@ -14,5 +14,11 @@ class TaskRepository(private val dao: TasksDao) {
 
     fun deleteAll() = dao.deleteAll()
 
-    fun getAllTasks(): Flow<List<Task>> = dao.getNotes()
+    fun getTaskById(taskId: Long): Flow<List<Task>> = dao.getTaskById(taskId = taskId)
+
+    fun getAllTasks(): Flow<List<Task>> = dao.getTasks()
+
+    fun getTasksByDate(date: Long) = dao.getTasksByDate(date = date)
+
+    fun getTasksBetweenDates(startDate: Long, endDate: Long): Flow<List<Task>> = dao.getTasksBetweenDates(startDate = startDate, endDate = endDate)
 }

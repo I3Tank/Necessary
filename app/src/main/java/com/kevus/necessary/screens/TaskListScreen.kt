@@ -1,6 +1,5 @@
 package com.kevus.necessary.screens
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,6 +15,7 @@ import androidx.navigation.NavController
 import com.kevus.necessary.models.Task
 import com.kevus.necessary.navigation.AppScreens
 import com.kevus.necessary.viemodels.TaskViewModel
+import com.kevus.necessary.widgets.BottomNavBar
 import com.kevus.necessary.widgets.TaskBox
 
 @Composable
@@ -27,13 +27,18 @@ fun TaskListScreen(navController: NavController, taskViewModel: TaskViewModel) {
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                navController.navigate(AppScreens.ConfigureTaskScreen.name)
+                //can't use null with the navigation so we use a ID that is never auto Generated(hopefully) = 0
+                val newTaskId: Long = 0
+                navController.navigate(AppScreens.ConfigureTaskScreen.name +"/$newTaskId")
             }, content = {
                 Icon(
                     imageVector = Icons.Default.AddCircle,
                     contentDescription = "Add new task"
                 )
             })
+        },
+        bottomBar = {
+            BottomNavBar(navController = navController)
         }
     ) {
         MainContent(navController = navController, taskViewModel = taskViewModel)
@@ -42,6 +47,7 @@ fun TaskListScreen(navController: NavController, taskViewModel: TaskViewModel) {
 
 @Composable
 private fun MainContent(navController: NavController, taskViewModel: TaskViewModel) {
+    //val taskList: List<Task> by taskViewModel.tasks.collectAsState()
     val taskList: List<Task> by taskViewModel.tasks.collectAsState()
 
     //Timeline()
@@ -54,5 +60,4 @@ private fun MainContent(navController: NavController, taskViewModel: TaskViewMod
             //Text(text = Task.TaskName)
         }
     }
-
 }
