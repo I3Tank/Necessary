@@ -4,5 +4,6 @@ enum class AppScreens {
     OverviewScreen,
     TaskListScreen,
     SettingsScreen,
-    ConfigureTaskScreen;
+    ConfigureTaskScreen,
+    BirthdayReminderScreen;
 }

@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,12 +17,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.kevus.necessary.viemodels.DataStoreViewModel
 import com.kevus.necessary.viemodels.TaskViewModel
 import com.kevus.necessary.widgets.BottomNavBar
 import com.kevus.necessary.widgets.SimpleTopAppBar
+import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen(navController: NavController, taskViewModel: TaskViewModel){
+fun SettingsScreen(navController: NavController, dataStoreViewModel: DataStoreViewModel){
     Scaffold(
         backgroundColor = Color.DarkGray,
         topBar = {
@@ -36,15 +40,15 @@ fun SettingsScreen(navController: NavController, taskViewModel: TaskViewModel){
             }
         },
         bottomBar = {
-            BottomNavBar(navController = navController)
+            BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
         }
     ) {
-        MainContent()
+        MainContent(dataStoreViewModel)
     }
 }
 
 @Composable
-private fun MainContent(){
+private fun MainContent(dataStoreViewModel: DataStoreViewModel){
     Column() {
         Card(modifier = Modifier.fillMaxWidth()) {
             Column() {
@@ -61,7 +65,8 @@ private fun MainContent(){
                 Text(text = "Configure Tabs", fontSize = 20.sp)
                 Row() {
                     Text(text = "Birthday Reminder")
-                    ScreenCheckBox()
+                    ScreenCheckBox(dataStoreViewModel = dataStoreViewModel)
+
                 }
             }
         }
@@ -69,7 +74,7 @@ private fun MainContent(){
             Column() {
                 Text(text = "Current Theme", fontSize = 20.sp)
                 Row {
-                    SimpleRadioButtonComponent()
+                    SimpleRadioButtonComponent(dataStoreViewModel = dataStoreViewModel)
                 }
             }
         }
@@ -77,21 +82,31 @@ private fun MainContent(){
 }
 
 @Composable
-private fun ScreenCheckBox(){
-    val checkedState = remember {mutableStateOf(false)}
+private fun ScreenCheckBox(dataStoreViewModel: DataStoreViewModel){
+    val getBirthdayTabActive = dataStoreViewModel.birthdayTabActive.observeAsState().value
+    val checkedState = remember {mutableStateOf(getBirthdayTabActive)}
+    val scope = rememberCoroutineScope()
     Checkbox(
-        checked = checkedState.value,
+        checked = checkedState.value!!,
         onCheckedChange = {
             checkedState.value = it
-        /*TODO Change the tabs that get displayed*/
+            //Here we save the settings for the BirthdayScreen
+            scope.launch {
+                dataStoreViewModel.setBirthdayScreenTab(checkedState.value!!)
+            }
         }
     )
 }
 
 @Composable
-fun SimpleRadioButtonComponent() {
-    val radioOptions = listOf("Theme1", "Theme2", "Theme3")
-    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[2]) }
+fun SimpleRadioButtonComponent(dataStoreViewModel: DataStoreViewModel) {
+    val activeTheme = dataStoreViewModel.activeTheme.observeAsState().value
+    val scope = rememberCoroutineScope()
+
+
+    val radioOptions = listOf("Dark", "Light", "Color")
+    val index = radioOptions.indexOf(activeTheme)
+    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[index]) }
     Column(
         // we are using column to align our
         // imageview to center of the screen.
@@ -126,7 +141,13 @@ fun SimpleRadioButtonComponent() {
                             selected = (text == selectedOption),
                             // below method is called on
                             // clicking of radio button.
-                            onClick = { onOptionSelected(text) }
+                            onClick = {
+                                onOptionSelected(text)
+                                //we have this in total of 2 times, since we can click the radio button AND the Card ??
+                                scope.launch {
+                                    dataStoreViewModel.setActiveTheme(text)
+                                }
+                            }
                         )
                         // below line is use to add
                         // padding to radio button.
@@ -148,10 +169,12 @@ fun SimpleRadioButtonComponent() {
                         // adding selected with a option.
                         selected = (text == selectedOption),modifier = Modifier.padding(all = Dp(value = 8F)),
                         onClick = {
-                            // inide on click method we are setting a
+                            // inside on click method we are setting a
                             // selected option of our radio buttons.
                             onOptionSelected(text)
-
+                            scope.launch {
+                                dataStoreViewModel.setActiveTheme(text)
+                            }
                             // after clicking a radio button
                             // we are displaying a toast message.
                             // Toast.makeText(context, text, Toast.LENGTH_LONG).show()
@@ -161,5 +184,6 @@ fun SimpleRadioButtonComponent() {
                 }
             }
         }
+        Text(text = "Active theme = $activeTheme")
     }
 }

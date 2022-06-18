@@ -4,11 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -17,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.kevus.necessary.navigation.AppScreens
+import com.kevus.necessary.viemodels.DataStoreViewModel
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.temporal.WeekFields
@@ -102,7 +101,8 @@ fun SimpleTopAppBar(arrowBackClicked: () -> Unit = {}, content: @Composable () -
 }
 
 @Composable
-fun BottomNavBar(navController: NavController) {
+fun BottomNavBar(navController: NavController, dataStoreViewModel: DataStoreViewModel) {
+    val getBirthdayTabActive = dataStoreViewModel.birthdayTabActive.observeAsState().value
     BottomAppBar(elevation = 3.dp) {
         Row {
             IconButton(modifier = Modifier.weight(1f), onClick = {
@@ -128,6 +128,16 @@ fun BottomNavBar(navController: NavController) {
                     imageVector = Icons.Default.AddCircle,
                     contentDescription = "Open Task List Screen"
                 )
+            }
+            if(getBirthdayTabActive == true){
+                IconButton(modifier = Modifier.weight(1f), onClick = {
+                    navController.navigate(AppScreens.BirthdayReminderScreen.name)
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Notifications,
+                        contentDescription = "Open Birthday Reminder Screen"
+                    )
+                }
             }
         }
     }

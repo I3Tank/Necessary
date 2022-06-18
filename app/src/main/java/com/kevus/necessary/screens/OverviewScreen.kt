@@ -17,13 +17,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.kevus.necessary.models.Task
 import com.kevus.necessary.navigation.AppScreens
+import com.kevus.necessary.viemodels.DataStoreViewModel
 import com.kevus.necessary.viemodels.TaskViewModel
 import com.kevus.necessary.widgets.*
 import java.util.*
 
 
 @Composable
-fun OverviewScreen(navController: NavController, taskViewModel: TaskViewModel) {
+fun OverviewScreen(navController: NavController, taskViewModel: TaskViewModel, dataStoreViewModel: DataStoreViewModel) {
 
     //True = Daily View, False = Weekly View
     var overviewMode by remember{ mutableStateOf(true)}
@@ -44,7 +45,7 @@ fun OverviewScreen(navController: NavController, taskViewModel: TaskViewModel) {
             }
         },
         bottomBar = {
-            BottomNavBar(navController = navController)
+            BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
         }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)){

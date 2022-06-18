@@ -16,12 +16,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.kevus.necessary.models.Task
 import com.kevus.necessary.navigation.AppScreens
+import com.kevus.necessary.viemodels.DataStoreViewModel
 import com.kevus.necessary.viemodels.TaskViewModel
 import com.kevus.necessary.widgets.BottomNavBar
 import com.kevus.necessary.widgets.TaskBox
 
 @Composable
-fun TaskListScreen(navController: NavController, taskViewModel: TaskViewModel) {
+fun TaskListScreen(navController: NavController, taskViewModel: TaskViewModel, dataStoreViewModel: DataStoreViewModel) {
     Scaffold(
         backgroundColor = Color.DarkGray,
         topBar = {
@@ -40,7 +41,7 @@ fun TaskListScreen(navController: NavController, taskViewModel: TaskViewModel) {
             })
         },
         bottomBar = {
-            BottomNavBar(navController = navController)
+            BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
         }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
