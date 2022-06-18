@@ -20,7 +20,7 @@ import com.kevus.necessary.viemodels.DataStoreViewModel
 import com.kevus.necessary.viemodels.DataStoreViewModelFactory
 
 @Composable
-fun AppNavigation(navController: NavHostController = rememberNavController()) {
+fun AppNavigation(navController: NavHostController = rememberNavController(), dataStoreViewModel: DataStoreViewModel) {
     val context = LocalContext.current
     val db = TasksDB.getDataBase(context = context)
     val repository = TaskRepository(dao = db.tasksDao())
@@ -31,9 +31,9 @@ fun AppNavigation(navController: NavHostController = rememberNavController()) {
 
     //val dataStoreRepository: DataStorePreferenceRepository = DataStorePreferenceRepository.getInstance(context)
 
-    val dataStoreViewModel: DataStoreViewModel = viewModel(
-        factory = DataStoreViewModelFactory(DataStorePreferenceRepository(LocalContext.current))
-    )
+//    val dataStoreViewModel: DataStoreViewModel = viewModel(
+//        factory = DataStoreViewModelFactory(DataStorePreferenceRepository(LocalContext.current))
+//    )
 
     NavHost(navController = navController, startDestination = AppScreens.OverviewScreen.name) {
         composable(route = AppScreens.OverviewScreen.name) {
@@ -56,6 +56,7 @@ fun AppNavigation(navController: NavHostController = rememberNavController()) {
         ) { navBackStackEntry ->
             ConfigureTaskScreen(
                 navController = navController,
+                dataStoreViewModel = dataStoreViewModel,
                 taskViewModel = taskViewModel,
                 taskId = navBackStackEntry.arguments?.getLong("taskId")
             )

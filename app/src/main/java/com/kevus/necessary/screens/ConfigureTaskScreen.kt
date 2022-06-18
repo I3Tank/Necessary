@@ -20,28 +20,36 @@ import androidx.compose.ui.platform.LocalContext
 import com.kevus.necessary.db.TasksDao
 import com.kevus.necessary.models.Task
 import com.kevus.necessary.models.calendar
+import com.kevus.necessary.ui.theme.NecessaryTheme
+import com.kevus.necessary.viemodels.DataStoreViewModel
 import java.util.*
 //TODO ID as parameter wenn null -> neuer task, sonst bearbeiten/löschen option
 @Composable
-fun ConfigureTaskScreen(navController: NavController, taskViewModel: TaskViewModel, taskId: Long?){
+fun ConfigureTaskScreen(navController: NavController, taskViewModel: TaskViewModel, dataStoreViewModel: DataStoreViewModel, taskId: Long?) {
     val newTask: Boolean = taskId == 0.toLong()
-    Scaffold(
-        backgroundColor = Color.DarkGray,
-        topBar = {
-            SimpleTopAppBar(arrowBackClicked = {navController.popBackStack()}){
-                if(newTask){
-                    Text(text = "Add task")
-                } else {
-                    Text(text = "Edit task")
+
+    NecessaryTheme(darkTheme = true, dataStoreViewModel = dataStoreViewModel) {
+        Scaffold(
+//            backgroundColor = Color.DarkGray,
+            topBar = {
+                SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
+                    if (newTask) {
+                        Text(text = "Add task")
+                    } else {
+                        Text(text = "Edit task")
+                    }
                 }
             }
-        }
-    ) {
-        if(newTask){
-            ShowAddTaskMenu(navController = navController, taskViewModel = taskViewModel)
-        }
-        else {
-            ShowEditTaskMenu(navController = navController, taskViewModel = taskViewModel, taskId = taskId)
+        ) {
+            if (newTask) {
+                ShowAddTaskMenu(navController = navController, taskViewModel = taskViewModel)
+            } else {
+                ShowEditTaskMenu(
+                    navController = navController,
+                    taskViewModel = taskViewModel,
+                    taskId = taskId
+                )
+            }
         }
     }
 }

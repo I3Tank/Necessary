@@ -13,10 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role.Companion.Checkbox
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.kevus.necessary.ui.theme.NecessaryTheme
 import com.kevus.necessary.viemodels.DataStoreViewModel
 import com.kevus.necessary.viemodels.TaskViewModel
 import com.kevus.necessary.widgets.BottomNavBar
@@ -24,35 +27,37 @@ import com.kevus.necessary.widgets.SimpleTopAppBar
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen(navController: NavController, dataStoreViewModel: DataStoreViewModel){
-    Scaffold(
-        backgroundColor = Color.DarkGray,
-        topBar = {
-            TopAppBar(elevation = 3.dp) {
-                Column(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = "Settings",
-                        modifier = Modifier.align(Alignment.CenterHorizontally),
-                    )
+fun SettingsScreen(navController: NavController, dataStoreViewModel: DataStoreViewModel) {
+
+    NecessaryTheme(darkTheme = true, dataStoreViewModel = dataStoreViewModel) {
+        Scaffold(
+            topBar = {
+                TopAppBar(elevation = 3.dp) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "Settings",
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                        )
+                    }
                 }
+            },
+            bottomBar = {
+                BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
             }
-        },
-        bottomBar = {
-            BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
+        ) {
+            MainContent(dataStoreViewModel)
         }
-    ) {
-        MainContent(dataStoreViewModel)
     }
 }
 
 @Composable
 private fun MainContent(dataStoreViewModel: DataStoreViewModel){
     Column() {
-        Card(modifier = Modifier.fillMaxWidth()) {
-            Column() {
-                Text(text = "Login", fontSize = 20.sp)
+        Card(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//                Text(text = "Login", fontSize = 20.sp)
                 Row() {
                     Button(onClick = { /*TODO*/ }) {
                         Text(text = "G+ Login")
@@ -60,9 +65,9 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
                 }
             }
         }
-        Card(modifier = Modifier.fillMaxWidth()) {
-            Column() {
-                Text(text = "Configure Tabs", fontSize = 20.sp)
+        Card(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(text = "CONFIGURE TABS", fontSize = 20.sp, fontWeight = FontWeight.Light)
                 Row() {
                     Text(text = "Birthday Reminder")
                     ScreenCheckBox(dataStoreViewModel = dataStoreViewModel)
@@ -70,10 +75,10 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
                 }
             }
         }
-        Card(modifier = Modifier.fillMaxWidth()) {
-            Column() {
-                Text(text = "Current Theme", fontSize = 20.sp)
-                Row {
+        Card(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(text = "THEMES", fontSize = 20.sp, fontWeight = FontWeight.Light)
+                Row() {
                     SimpleRadioButtonComponent(dataStoreViewModel = dataStoreViewModel)
                 }
             }
@@ -104,7 +109,7 @@ fun SimpleRadioButtonComponent(dataStoreViewModel: DataStoreViewModel) {
     val scope = rememberCoroutineScope()
 
 
-    val radioOptions = listOf("Dark", "Light", "Color")
+    val radioOptions = listOf("Dark", "Light", "Red", "Terra Cotta")
     val index = radioOptions.indexOf(activeTheme)
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[index]) }
     Column(
@@ -156,12 +161,6 @@ fun SimpleRadioButtonComponent(dataStoreViewModel: DataStoreViewModel) {
                     // below line is use to get context.
                     val context = LocalContext.current
 
-                    // below line is use to add
-                    // text to our radio buttons.
-                    Text(
-                        text = text,
-                        modifier = Modifier.padding(start = 16.dp)
-                    )
                     // below line is use to
                     // generate radio button
                     RadioButton(
@@ -180,10 +179,16 @@ fun SimpleRadioButtonComponent(dataStoreViewModel: DataStoreViewModel) {
                             // Toast.makeText(context, text, Toast.LENGTH_LONG).show()
                         }
                     )
+                    // below line is use to add
+                    // text to our radio buttons.
+                    Text(
+                        text = text,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
 
                 }
             }
         }
-        Text(text = "Active theme = $activeTheme")
+//        Text(text = "Active theme = $activeTheme")
     }
 }

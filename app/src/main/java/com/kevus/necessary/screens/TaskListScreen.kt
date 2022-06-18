@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.kevus.necessary.models.Task
 import com.kevus.necessary.navigation.AppScreens
+import com.kevus.necessary.ui.theme.NecessaryTheme
 import com.kevus.necessary.viemodels.DataStoreViewModel
 import com.kevus.necessary.viemodels.TaskViewModel
 import com.kevus.necessary.widgets.BottomNavBar
@@ -23,29 +24,32 @@ import com.kevus.necessary.widgets.TaskBox
 
 @Composable
 fun TaskListScreen(navController: NavController, taskViewModel: TaskViewModel, dataStoreViewModel: DataStoreViewModel) {
-    Scaffold(
-        backgroundColor = Color.DarkGray,
-        topBar = {
-            TopAppBar(title = { Text(text = "Tasklist") })
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = {
-                //can't use null with the navigation so we use a ID that is never auto Generated(hopefully) = 0
-                val newTaskId: Long = 0
-                navController.navigate(AppScreens.ConfigureTaskScreen.name +"/$newTaskId")
-            }, content = {
-                Icon(
-                    imageVector = Icons.Default.AddCircle,
-                    contentDescription = "Add new task"
-                )
-            })
-        },
-        bottomBar = {
-            BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
-        }
-    ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-            MainContent(navController = navController, taskViewModel = taskViewModel)
+
+    NecessaryTheme(darkTheme = true, dataStoreViewModel = dataStoreViewModel) {
+        Scaffold(
+//            backgroundColor = Color.DarkGray,
+            topBar = {
+                TopAppBar(title = { Text(text = "Tasklist") })
+            },
+            floatingActionButton = {
+                FloatingActionButton(onClick = {
+                    //can't use null with the navigation so we use a ID that is never auto Generated(hopefully) = 0
+                    val newTaskId: Long = 0
+                    navController.navigate(AppScreens.ConfigureTaskScreen.name + "/$newTaskId")
+                }, content = {
+                    Icon(
+                        imageVector = Icons.Default.AddCircle,
+                        contentDescription = "Add new task"
+                    )
+                })
+            },
+            bottomBar = {
+                BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
+            }
+        ) { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                MainContent(navController = navController, taskViewModel = taskViewModel)
+            }
         }
     }
 }

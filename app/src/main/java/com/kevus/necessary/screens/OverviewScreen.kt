@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.kevus.necessary.models.Task
 import com.kevus.necessary.navigation.AppScreens
+import com.kevus.necessary.ui.theme.NecessaryTheme
 import com.kevus.necessary.viemodels.DataStoreViewModel
 import com.kevus.necessary.viemodels.TaskViewModel
 import com.kevus.necessary.widgets.*
@@ -27,32 +28,33 @@ import java.util.*
 fun OverviewScreen(navController: NavController, taskViewModel: TaskViewModel, dataStoreViewModel: DataStoreViewModel) {
 
     //True = Daily View, False = Weekly View
-    var overviewMode by remember{ mutableStateOf(true)}
+    var overviewMode by remember { mutableStateOf(true) }
 
     //taskViewModel.addTask(getTestTask())
     //taskViewModel.removeAllTasks()
     //getTestTaskList().forEach{
     //    taskViewModel.addTask(it)
     //}
-
-    Scaffold(
-        backgroundColor = Color.DarkGray,
-        topBar = {
-            if(overviewMode) {
-                TopDayBar(onToggleClick = {overviewMode = !overviewMode})
-            } else {
-                TopWeekBar(onToggleClick = {overviewMode = !overviewMode})
+    NecessaryTheme(darkTheme = true, dataStoreViewModel = dataStoreViewModel) {
+        Scaffold(
+//            backgroundColor = Color.DarkGray,
+            topBar = {
+                if (overviewMode) {
+                    TopDayBar(onToggleClick = { overviewMode = !overviewMode })
+                } else {
+                    TopWeekBar(onToggleClick = { overviewMode = !overviewMode })
+                }
+            },
+            bottomBar = {
+                BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
             }
-        },
-        bottomBar = {
-            BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
-        }
-    ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)){
-            if (overviewMode) {
-                ShowDayOverview(taskViewModel = taskViewModel, navController = navController)
-            } else {
-                ShowWeeklyOverview(taskViewModel = taskViewModel)
+        ) { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                if (overviewMode) {
+                    ShowDayOverview(taskViewModel = taskViewModel, navController = navController)
+                } else {
+                    ShowWeeklyOverview(taskViewModel = taskViewModel)
+                }
             }
         }
     }
