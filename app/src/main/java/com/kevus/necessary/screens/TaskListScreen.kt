@@ -1,6 +1,7 @@
 package com.kevus.necessary.screens
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,8 +12,10 @@ import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.navigation.NavController
 import com.kevus.necessary.models.Task
 import com.kevus.necessary.navigation.AppScreens
@@ -29,7 +32,18 @@ fun TaskListScreen(navController: NavController, taskViewModel: TaskViewModel, d
         Scaffold(
 //            backgroundColor = Color.DarkGray,
             topBar = {
-                TopAppBar(title = { Text(text = "Tasklist") })
+                TopAppBar(title = {
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "TASKLIST",
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            style = MaterialTheme.typography.body1,
+                            fontStyle = FontStyle.Italic
+                        )
+                    }
+                })
             },
             floatingActionButton = {
                 FloatingActionButton(onClick = {

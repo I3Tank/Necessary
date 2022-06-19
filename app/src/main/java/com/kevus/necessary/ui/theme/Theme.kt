@@ -8,12 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import com.kevus.necessary.viemodels.DataStoreViewModel
 val DarkColorPalette = darkColors(
-    background = Black,
+    background = OxfordBlue,
     surface = DavysGrey,
-    primary = OxfordBlue,
+    primary = Fulvous,
     secondary = Fulvous,
-    onPrimary = Fulvous,
-    onSecondary = DavysGrey,
+    onPrimary = White,
+    onSecondary = White,
     onBackground = Snow,
     onSurface = Snow,
 )

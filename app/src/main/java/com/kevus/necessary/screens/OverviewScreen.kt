@@ -75,7 +75,8 @@ fun ShowDayOverview(taskViewModel: TaskViewModel, navController: NavController) 
             items(currentDayTasks.sortedBy { it.TaskDate }) { task ->
                 TaskBox(
                     task = task,
-                    onItemClick = { taskId -> navController.navigate(AppScreens.ConfigureTaskScreen.name + "/$taskId") }
+                    onItemClick = { taskId -> navController.navigate(AppScreens.ConfigureTaskScreen.name + "/$taskId")
+                    }
                 )
                 //Text(text = Task.TaskName)
             }

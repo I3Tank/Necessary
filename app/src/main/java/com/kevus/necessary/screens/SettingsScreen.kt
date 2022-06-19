@@ -1,5 +1,6 @@
 package com.kevus.necessary.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role.Companion.Checkbox
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -37,8 +39,10 @@ fun SettingsScreen(navController: NavController, dataStoreViewModel: DataStoreVi
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = "Settings",
+                            text = "SETTINGS",
                             modifier = Modifier.align(Alignment.CenterHorizontally),
+                            style = MaterialTheme.typography.body1,
+                            fontStyle = FontStyle.Italic
                         )
                     }
                 }
@@ -59,7 +63,7 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
 //                Text(text = "Login", fontSize = 20.sp)
                 Row() {
-                    Button(onClick = { /*TODO*/ }) {
+                    Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
                         Text(text = "G+ Login")
                     }
                 }
@@ -67,9 +71,9 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
         }
         Card(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "CONFIGURE TABS", fontSize = 20.sp, fontWeight = FontWeight.Light)
+                Text(text = "CONFIGURE TABS", style = MaterialTheme.typography.subtitle1, fontSize = 25.sp)
                 Row() {
-                    Text(text = "Birthday Reminder")
+                    Text(text = "Birthday Reminder", style = MaterialTheme.typography.subtitle2)
                     ScreenCheckBox(dataStoreViewModel = dataStoreViewModel)
 
                 }
@@ -77,7 +81,7 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
         }
         Card(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "THEMES", fontSize = 20.sp, fontWeight = FontWeight.Light)
+                Text(text = "THEMES", style = MaterialTheme.typography.subtitle1, fontSize = 25.sp)
                 Row() {
                     SimpleRadioButtonComponent(dataStoreViewModel = dataStoreViewModel)
                 }
@@ -183,7 +187,8 @@ fun SimpleRadioButtonComponent(dataStoreViewModel: DataStoreViewModel) {
                     // text to our radio buttons.
                     Text(
                         text = text,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
+                        style = MaterialTheme.typography.body2
                     )
 
                 }

@@ -48,13 +48,13 @@ fun TaskBox(
             Text(
                 text = task.TaskName,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                style = MaterialTheme.typography.h6
+                style = MaterialTheme.typography.body2
             )
             //Text for the displayed Time
             Text(
                 text = getDisplayTime(task),
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                style = MaterialTheme.typography.overline
+                style = MaterialTheme.typography.subtitle2
             )
         }
     }
@@ -76,7 +76,8 @@ fun WeekTaskBox(
             },
         shape = RoundedCornerShape(corner = CornerSize(1.dp)),
     ) {
-        Text(text = task.TaskName, fontSize = 10.sp)
+        Text(text = task.TaskName, style = MaterialTheme.typography.subtitle2)
+        Text(text = getDisplayTime(task), style = MaterialTheme.typography.subtitle2)
     }
 }
 

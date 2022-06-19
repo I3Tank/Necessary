@@ -40,6 +40,7 @@ fun TopDayBar(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .clickable { onToggleClick(false) },
+                    style = MaterialTheme.typography.body1,
                 )
             }
         }
@@ -64,16 +65,17 @@ fun TopWeekBar(
                 Text(text = "Week $weekNumber",
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .clickable { onToggleClick(true) }
+                        .clickable { onToggleClick(true) },
+                    style = MaterialTheme.typography.body1,
                 )
                 Row(){
-                    Text(text = "MON", Modifier.width(screenWidth), fontSize = 12.sp)
-                    Text(text = "TUE", Modifier.width(screenWidth), fontSize = 12.sp)
-                    Text(text = "WED", Modifier.width(screenWidth), fontSize = 12.sp)
-                    Text(text = "THU", Modifier.width(screenWidth), fontSize = 12.sp)
-                    Text(text = "FRI", Modifier.width(screenWidth), fontSize = 12.sp)
-                    Text(text = "SAT", Modifier.width(screenWidth), fontSize = 12.sp)
-                    Text(text = "SUN", Modifier.width(screenWidth), fontSize = 12.sp)
+                    Text(text = "MON", Modifier.width(screenWidth), style = MaterialTheme.typography.subtitle2)
+                    Text(text = "TUE", Modifier.width(screenWidth), style = MaterialTheme.typography.subtitle2)
+                    Text(text = "WED", Modifier.width(screenWidth), style = MaterialTheme.typography.subtitle2)
+                    Text(text = "THU", Modifier.width(screenWidth), style = MaterialTheme.typography.subtitle2)
+                    Text(text = "FRI", Modifier.width(screenWidth), style = MaterialTheme.typography.subtitle2)
+                    Text(text = "SAT", Modifier.width(screenWidth), style = MaterialTheme.typography.subtitle2)
+                    Text(text = "SUN", Modifier.width(screenWidth), style = MaterialTheme.typography.subtitle2)
                 }
             }
         }

@@ -3,17 +3,42 @@ package com.kevus.necessary.ui.theme
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 // Set of Material typography styles to start with
 val Typography = Typography(
 
+    //HEADINGS i.e SETTINGS
     body1 = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = FontFamily.Monospace,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
-    )
+        fontSize = 25.sp
+    ),
+
+    //CONTENT
+    body2 = TextStyle(
+        fontFamily = FontFamily.Monospace,
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp
+    ),
+
+    //SUBHEADINGS i.e. CONFIGURE TABS
+    subtitle1 = TextStyle(
+        fontFamily = FontFamily.Monospace,
+        fontWeight = FontWeight.Light,
+        fontSize = 20.sp
+    ),
+
+    //SUBCONTENT i.e Birthday Reminder
+    subtitle2 = TextStyle(
+        fontFamily = FontFamily.Monospace,
+        fontWeight = FontWeight.Light,
+        fontSize = 15.sp
+    ),
+
+
     /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,

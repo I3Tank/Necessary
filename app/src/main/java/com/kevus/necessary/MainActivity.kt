@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kevus.necessary.navigation.AppNavigation
 import com.kevus.necessary.repositories.DataStorePreferenceRepository
@@ -23,6 +24,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            this.window.statusBarColor = ContextCompat.getColor(this,R.color.black)
             val context = LocalContext.current
             val dataStoreViewModel: DataStoreViewModel = viewModel(
                 factory = DataStoreViewModelFactory(DataStorePreferenceRepository(LocalContext.current))
@@ -31,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
 //                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colors.background,
                 ) {
                     AppNavigation(dataStoreViewModel = dataStoreViewModel)
                 }
