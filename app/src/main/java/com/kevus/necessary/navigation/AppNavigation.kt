@@ -3,32 +3,34 @@ package com.kevus.necessary.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.kevus.necessary.viemodels.TaskViewModel
+import com.kevus.necessary.db.BirthdaysDB
 import com.kevus.necessary.db.TasksDB
+import com.kevus.necessary.repositories.BirthdayRepository
 import com.kevus.necessary.repositories.TaskRepository
 import com.kevus.necessary.screens.*
-import com.kevus.necessary.viemodels.TaskViewModelFactory
-import com.kevus.necessary.repositories.DataStorePreferenceRepository
-import com.kevus.necessary.viemodels.DataStoreViewModel
-import com.kevus.necessary.viemodels.DataStoreViewModelFactory
+import com.kevus.necessary.viemodels.*
 
 @Composable
 fun AppNavigation(navController: NavHostController = rememberNavController(), dataStoreViewModel: DataStoreViewModel) {
     val context = LocalContext.current
-    val db = TasksDB.getDataBase(context = context)
-    val repository = TaskRepository(dao = db.tasksDao())
+    val taskDB = TasksDB.getDataBase(context = context)
+    val taskRepository = TaskRepository(dao = taskDB.tasksDao())
 
     val taskViewModel: TaskViewModel = viewModel(
-        factory = TaskViewModelFactory(repository = repository)
+        factory = TaskViewModelFactory(repository = taskRepository)
     )
 
+    val birthdayDB = BirthdaysDB.getDataBase(context = context)
+    val birthdayRepository = BirthdayRepository(dao = birthdayDB.birthdayDao())
+    val birthdayViewModel: BirthdayViewModel = viewModel(
+        factory = BirthdayViewModelFactory(repository = birthdayRepository)
+    )
     //val dataStoreRepository: DataStorePreferenceRepository = DataStorePreferenceRepository.getInstance(context)
 
 //    val dataStoreViewModel: DataStoreViewModel = viewModel(
@@ -63,7 +65,7 @@ fun AppNavigation(navController: NavHostController = rememberNavController(), da
         }
 
         composable(route = AppScreens.BirthdayReminderScreen.name) {
-            BirthdayReminderScreen(navController = navController, taskViewModel = taskViewModel, dataStoreViewModel = dataStoreViewModel)
+            BirthdayReminderScreen(navController = navController, taskViewModel = taskViewModel, dataStoreViewModel = dataStoreViewModel, birthdayViewModel = birthdayViewModel)
         }
     }
 }

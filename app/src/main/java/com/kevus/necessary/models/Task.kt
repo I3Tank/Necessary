@@ -28,7 +28,7 @@ data class Task(
     val TaskTags: String? = null,
     val TaskIsDone: Boolean
 )
-var calendar: Calendar = Calendar.getInstance()
+private var calendar: Calendar = Calendar.getInstance()
 @Composable
 fun getTestTask(): Task {
     calendar.set(2022, 6, 13)

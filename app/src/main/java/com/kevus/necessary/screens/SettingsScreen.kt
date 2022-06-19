@@ -129,7 +129,7 @@ fun SimpleRadioButtonComponent(dataStoreViewModel: DataStoreViewModel) {
 
         // below line is used for
         // specifying horizontal arrangement.
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // we are displaying all our
         // radio buttons in column.

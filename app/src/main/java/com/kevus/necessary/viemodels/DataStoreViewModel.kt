@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kevus.necessary.repositories.DataStorePreferenceRepository
 import kotlinx.coroutines.launch
+//Code from https://github.com/MakeItEasyDev/Jetpack-Compose-Preference-DataStore
 
 class DataStoreViewModel(
     private val dataStorePreferenceRepository: DataStorePreferenceRepository
