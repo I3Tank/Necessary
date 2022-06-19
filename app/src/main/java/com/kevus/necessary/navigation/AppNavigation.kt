@@ -12,6 +12,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.kevus.necessary.db.BirthdaysDB
 import com.kevus.necessary.db.TasksDB
+import com.kevus.necessary.googleAuth.SignInScreen
+import com.kevus.necessary.googleAuth.SignInViewModel
 import com.kevus.necessary.repositories.BirthdayRepository
 import com.kevus.necessary.repositories.TaskRepository
 import com.kevus.necessary.screens.*
@@ -35,6 +37,8 @@ fun AppNavigation(navController: NavHostController = rememberNavController(), da
 
     val startupScreen = dataStoreViewModel.startupScreen.observeAsState().value
     //val dataStoreRepository: DataStorePreferenceRepository = DataStorePreferenceRepository.getInstance(context)
+
+    val signInViewModel: SignInViewModel = viewModel()
 
 //    val dataStoreViewModel: DataStoreViewModel = viewModel(
 //        factory = DataStoreViewModelFactory(DataStorePreferenceRepository(LocalContext.current))
@@ -69,6 +73,10 @@ fun AppNavigation(navController: NavHostController = rememberNavController(), da
 
         composable(route = AppScreens.BirthdayReminderScreen.name) {
             BirthdayReminderScreen(navController = navController, taskViewModel = taskViewModel, dataStoreViewModel = dataStoreViewModel, birthdayViewModel = birthdayViewModel)
+        }
+
+        composable(route = AppScreens.SignInScreen.name) {
+            SignInScreen(signInViewModel = signInViewModel)
         }
     }
 }

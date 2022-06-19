@@ -47,14 +47,14 @@ fun SettingsScreen(navController: NavController, dataStoreViewModel: DataStoreVi
             }
         ) {innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                MainContent(dataStoreViewModel)
+                MainContent(dataStoreViewModel, navController)
             }
         }
     }
 }
 
 @Composable
-private fun MainContent(dataStoreViewModel: DataStoreViewModel){
+private fun MainContent(dataStoreViewModel: DataStoreViewModel, navController: NavController){
     val scrollState = rememberScrollState()
     Column(Modifier.verticalScroll(scrollState)) {
         Card(modifier = Modifier
@@ -63,7 +63,9 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
 //                Text(text = "Login", fontSize = 20.sp)
                 Row() {
-                    Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
+                    Button(onClick = {
+                        navController.navigate(AppScreens.SignInScreen.name)
+                    }, modifier = Modifier.fillMaxWidth()) {
                         Text(text = "G+ Login")
                     }
                 }
