@@ -1,17 +1,12 @@
 package com.kevus.necessary.screens
 
-import android.app.Activity
-import android.util.DisplayMetrics
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -30,11 +25,6 @@ fun OverviewScreen(navController: NavController, taskViewModel: TaskViewModel, d
     //True = Daily View, False = Weekly View
     var overviewMode by remember { mutableStateOf(true) }
 
-    //taskViewModel.addTask(getTestTask())
-    //taskViewModel.removeAllTasks()
-    //getTestTaskList().forEach{
-    //    taskViewModel.addTask(it)
-    //}
     NecessaryTheme(darkTheme = true, dataStoreViewModel = dataStoreViewModel) {
         Scaffold(
 //            backgroundColor = Color.DarkGray,
@@ -72,13 +62,12 @@ fun ShowDayOverview(taskViewModel: TaskViewModel, navController: NavController) 
             modifier = Modifier.fillMaxWidth()
         ) {
             //we need to order the list by the TaskDate
-            items(currentDayTasks.sortedBy { it.TaskDate }) { task ->
+            items(currentDayTasks.sortedBy { it.TaskTime }) { task ->
                 TaskBox(
                     task = task,
                     onItemClick = { taskId -> navController.navigate(AppScreens.ConfigureTaskScreen.name + "/$taskId")
                     }
                 )
-                //Text(text = Task.TaskName)
             }
         }
     }
@@ -118,18 +107,13 @@ fun ShowWeeklyOverview(taskViewModel: TaskViewModel){
             Calendar.SUNDAY -> sundayList.add(task)
         }
     }
-    // Just a fake data... a Pair of Int and String
-    val tableData = (1..10).mapIndexed { index, item ->
-        index to "Item $index"
-    }
-    // Each cell of a column must have the same weight.
-    val columnWeight = 1f // 30%
-    // The LazyColumn will be our table. Notice the use of the weights below
-    LazyColumn(
+    val scrollState = rememberScrollState()
+    Column(
         Modifier
-            .fillMaxSize()) {
+            .fillMaxSize()
+            .verticalScroll(scrollState)) {
         // Here are all the lines of your table.
-        items(mondayList) { task ->
+
             Row(Modifier.fillMaxWidth()) {
                 dayColumn(mondayList)
                 dayColumn(tuesdayList)
@@ -139,7 +123,7 @@ fun ShowWeeklyOverview(taskViewModel: TaskViewModel){
                 dayColumn(saturdayList)
                 dayColumn(sundayList)
 
-            }
+
         }
 //        items(mondayList) { task ->
 //            Column() {

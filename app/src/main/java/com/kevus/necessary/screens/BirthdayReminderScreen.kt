@@ -1,11 +1,7 @@
 package com.kevus.necessary.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -14,15 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kevus.necessary.models.Birthday
 import com.kevus.necessary.ui.theme.NecessaryTheme
 import com.kevus.necessary.viemodels.BirthdayViewModel
 import com.kevus.necessary.viemodels.DataStoreViewModel
 import com.kevus.necessary.viemodels.TaskViewModel
-import com.kevus.necessary.widgets.AddBirthdayWidget
-import com.kevus.necessary.widgets.BirthdayBox
 import com.kevus.necessary.widgets.BirthdayCards
 import com.kevus.necessary.widgets.BottomNavBar
 import java.util.*

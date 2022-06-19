@@ -64,68 +64,6 @@ fun BirthdayBox(
 }
 
 @Composable
-fun AddBirthdayWidget(
-    onAddClick: (Birthday) -> Unit = {}
-){
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Add a Birthday!", modifier = Modifier.align(Alignment.CenterHorizontally))
-
-        var name by remember { mutableStateOf("") }
-        var birthday by remember { mutableStateOf("") }
-        var search by remember { mutableStateOf("") }
-
-
-        Row {
-            OutlinedTextField(
-                modifier = Modifier.weight(0.9f),
-                value = name,
-                onValueChange = { value -> name = value },
-                label = { Text(text = "Name", style = MaterialTheme.typography.subtitle1) },
-            )
-            OutlinedTextField(
-                modifier = Modifier.weight(1.1f),
-                value = birthday,
-                onValueChange = { value -> birthday = value },
-                label = { Text(text = "Birthday", style = MaterialTheme.typography.subtitle1) },
-                placeholder = { Text(text = "14.03.1998") }
-            )
-        }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Button(
-                modifier = Modifier.padding(16.dp),
-                onClick = {
-                    if (name.isNotEmpty() and birthday.isNotEmpty()) {
-                        val dateArr = birthday.split('.')
-                        val day = dateArr[0].toInt()
-                        val month = dateArr[1].toInt()
-                        val year = dateArr[2].toInt()
-
-                        val calendar = Calendar.getInstance()
-                        calendar.set(year, month, day)
-
-                        val newBirthday = Birthday(
-                            Name = name,
-                            Birthday = calendar.timeInMillis
-                        )
-                        onAddClick(newBirthday)
-                    }
-                    name = ""
-                    birthday = ""
-                }) {
-                Text(text = "Add")
-            }
-            OutlinedTextField(
-                modifier = Modifier.weight(1.1f),
-                value = search,
-                onValueChange = { value -> search = value },
-                label = { Text(text = "Search", style = MaterialTheme.typography.subtitle1) },
-                placeholder = { Text(text = "Search") }
-            )
-        }
-    }
-}
-
-@Composable
 fun BirthdayCards(
     birthdays: List<Birthday> = listOf(),
     onDeleteClick: (Birthday) -> Unit = {}
