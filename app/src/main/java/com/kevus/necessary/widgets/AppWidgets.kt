@@ -83,7 +83,7 @@ fun TopWeekBar(
 }
 
 
-
+//TODO arrow looking weird here
 @Composable
 fun SimpleTopAppBar(arrowBackClicked: () -> Unit = {}, content: @Composable () -> Unit){
     TopAppBar(elevation = 3.dp) {
