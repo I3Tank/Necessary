@@ -1,17 +1,18 @@
 package com.kevus.necessary.ui.theme
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import com.kevus.necessary.viemodels.DataStoreViewModel
-val DarkColorPalette = darkColors(
-    background = OxfordBlue,
-    surface = DavysGrey,
-    primary = Fulvous,
-    secondary = Fulvous,
+@SuppressLint("ConflictingOnColor")
+val DarkColorPalette = lightColors(
+    background = DarkPurple,
+    surface = Violet,
+    primary = Purple,
+    secondary = Phlox,
     onPrimary = White,
     onSecondary = White,
     onBackground = Snow,

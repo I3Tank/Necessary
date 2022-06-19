@@ -152,7 +152,7 @@ fun ShowWeeklyOverview(taskViewModel: TaskViewModel){
 @Composable
 fun dayColumn(tasks: List<Task>){
     val configuration = LocalConfiguration.current
-    var screenWidth = configuration.screenWidthDp.dp / 7
+    val screenWidth = configuration.screenWidthDp.dp / 7
     Column(Modifier.width(screenWidth)) {
         tasks.forEach(){ task ->
             //Text(text = task.TaskName.toCharArray()[0].toString(), Modifier.align(Alignment.CenterHorizontally))

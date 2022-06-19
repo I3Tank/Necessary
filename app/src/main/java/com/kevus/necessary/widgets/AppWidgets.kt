@@ -25,7 +25,7 @@ import java.util.*
 fun TopDayBar(
     onToggleClick: (Boolean) -> Unit = {}
 ) {
-    val sdf = SimpleDateFormat("dd.M")
+    val sdf = SimpleDateFormat("dd.MM")
     val currentDate = sdf.format(Date())
     val currentDay = LocalDate.now().dayOfWeek.toString() + "  " + currentDate
 

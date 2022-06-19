@@ -4,11 +4,18 @@ import androidx.compose.ui.graphics.Color
 
 //DARK THEME
 val Black = Color(0xFF000000)
-val OxfordBlue = Color(0xFF000022)
-val Fulvous = Color(0xFFE28413)
-val DavysGrey = Color(0xFF494949)
-val Grey = Color(0xFF8B8982)
+//val OxfordBlue = Color(0xFF000022)
+//val Fulvous = Color(0xFFE28413)
+//val DavysGrey = Color(0xFF494949)
+//val Grey = Color(0xFF8B8982)
 val Snow = Color(0xFFFBF5F3)
+
+//New DARK THEME
+val DarkPurple = Color(0xFF190518)
+val Purple = Color(0xFF2B0C2A)
+val Violet = Color(0xFF493249)
+val Phlox = Color(0xFFCD2DED)
+
 
 //LIGHT THEME
 //val LightPurple = Color(0xFFBB86FC)
