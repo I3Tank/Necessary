@@ -1,6 +1,7 @@
 package com.kevus.necessary.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -31,13 +32,15 @@ fun AppNavigation(navController: NavHostController = rememberNavController(), da
     val birthdayViewModel: BirthdayViewModel = viewModel(
         factory = BirthdayViewModelFactory(repository = birthdayRepository)
     )
+
+    val startupScreen = dataStoreViewModel.startupScreen.observeAsState().value
     //val dataStoreRepository: DataStorePreferenceRepository = DataStorePreferenceRepository.getInstance(context)
 
 //    val dataStoreViewModel: DataStoreViewModel = viewModel(
 //        factory = DataStoreViewModelFactory(DataStorePreferenceRepository(LocalContext.current))
 //    )
 
-    NavHost(navController = navController, startDestination = AppScreens.OverviewScreen.name) {
+    NavHost(navController = navController, startDestination = startupScreen!!) {
         composable(route = AppScreens.OverviewScreen.name) {
             OverviewScreen(navController = navController, taskViewModel = taskViewModel, dataStoreViewModel = dataStoreViewModel)
         }

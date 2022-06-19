@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.preferencesKey
 import androidx.datastore.preferences.createDataStore
+import com.kevus.necessary.navigation.AppScreens
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -14,10 +15,12 @@ class DataStorePreferenceRepository(context: Context) {
 
     private val isBirthdayScreenActiveDefault = false
     private val defaultActiveTheme = "Dark"
+    private val defaultStartupScreen = AppScreens.OverviewScreen.name
 
     companion object {
         val PREF_BIRTHDAYSCREEN = preferencesKey<Boolean>("birthday_tab")
         val PREF_ACTIVETHEME = preferencesKey<String>("active_theme")
+        val PREF_STARTUPSCREEN = preferencesKey<String>("startup_screen")
 
         private var INSTANCE: DataStorePreferenceRepository? = null
 
@@ -57,5 +60,18 @@ class DataStorePreferenceRepository(context: Context) {
     val getActiveThemeName: Flow<String> = dataStore.data
         .map { preferences ->
             preferences[PREF_ACTIVETHEME] ?: defaultActiveTheme
+        }
+
+    //setValue
+    suspend fun setStartupScreen(screenName: String) {
+        dataStore.edit { preferences ->
+            preferences[PREF_STARTUPSCREEN] = screenName
+        }
+    }
+
+    //getValue
+    val getStartupScreen: Flow<String> = dataStore.data
+        .map { preferences ->
+            preferences[PREF_STARTUPSCREEN] ?: defaultStartupScreen
         }
 }

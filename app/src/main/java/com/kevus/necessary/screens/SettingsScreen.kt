@@ -1,8 +1,9 @@
 package com.kevus.necessary.screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -11,21 +12,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.Role.Companion.Checkbox
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.kevus.necessary.navigation.AppScreens
 import com.kevus.necessary.ui.theme.NecessaryTheme
 import com.kevus.necessary.viemodels.DataStoreViewModel
-import com.kevus.necessary.viemodels.TaskViewModel
 import com.kevus.necessary.widgets.BottomNavBar
-import com.kevus.necessary.widgets.SimpleTopAppBar
 import kotlinx.coroutines.launch
 
 @Composable
@@ -50,16 +45,21 @@ fun SettingsScreen(navController: NavController, dataStoreViewModel: DataStoreVi
             bottomBar = {
                 BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
             }
-        ) {
-            MainContent(dataStoreViewModel)
+        ) {innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                MainContent(dataStoreViewModel)
+            }
         }
     }
 }
 
 @Composable
 private fun MainContent(dataStoreViewModel: DataStoreViewModel){
-    Column() {
-        Card(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
+    val scrollState = rememberScrollState()
+    Column(Modifier.verticalScroll(scrollState)) {
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
 //                Text(text = "Login", fontSize = 20.sp)
                 Row() {
@@ -69,7 +69,9 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
                 }
             }
         }
-        Card(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = "CONFIGURE TABS", style = MaterialTheme.typography.subtitle1, fontSize = 25.sp)
                 Row() {
@@ -79,11 +81,23 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
                 }
             }
         }
-        Card(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = "THEMES", style = MaterialTheme.typography.subtitle1, fontSize = 25.sp)
                 Row() {
-                    SimpleRadioButtonComponent(dataStoreViewModel = dataStoreViewModel)
+                    ThemeRadioButtons(dataStoreViewModel = dataStoreViewModel)
+                }
+            }
+        }
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(text = "STARTUP SCREEN", style = MaterialTheme.typography.subtitle1, fontSize = 25.sp)
+                Row() {
+                    StartupRadioButtons(dataStoreViewModel = dataStoreViewModel)
                 }
             }
         }
@@ -108,7 +122,7 @@ private fun ScreenCheckBox(dataStoreViewModel: DataStoreViewModel){
 }
 
 @Composable
-fun SimpleRadioButtonComponent(dataStoreViewModel: DataStoreViewModel) {
+fun ThemeRadioButtons(dataStoreViewModel: DataStoreViewModel) {
     val activeTheme = dataStoreViewModel.activeTheme.observeAsState().value
     val scope = rememberCoroutineScope()
 
@@ -117,39 +131,16 @@ fun SimpleRadioButtonComponent(dataStoreViewModel: DataStoreViewModel) {
     val index = radioOptions.indexOf(activeTheme)
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[index]) }
     Column(
-        // we are using column to align our
-        // imageview to center of the screen.
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .fillMaxHeight(),
-
-        // below line is used for
-        // specifying vertical arrangement.
         verticalArrangement = Arrangement.Center,
-
-        // below line is used for
-        // specifying horizontal arrangement.
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // we are displaying all our
-        // radio buttons in column.
         Column {
-            // below line is use to set data to
-            // each radio button in columns.
             radioOptions.forEach { text ->
                 Row(
                     Modifier
-                        // using modifier to add max
-                        // width to our radio button.
                         .fillMaxWidth()
-                        // below method is use to add
-                        // selectable to our radio button.
                         .selectable(
-                            // this method is called when
-                            // radio button is selected.
                             selected = (text == selectedOption),
-                            // below method is called on
-                            // clicking of radio button.
                             onClick = {
                                 onOptionSelected(text)
                                 //we have this in total of 2 times, since we can click the radio button AND the Card ??
@@ -158,33 +149,18 @@ fun SimpleRadioButtonComponent(dataStoreViewModel: DataStoreViewModel) {
                                 }
                             }
                         )
-                        // below line is use to add
-                        // padding to radio button.
                         .padding(horizontal = 16.dp)
                 ) {
-                    // below line is use to get context.
-                    val context = LocalContext.current
-
-                    // below line is use to
-                    // generate radio button
                     RadioButton(
-                        // inside this method we are
-                        // adding selected with a option.
-                        selected = (text == selectedOption),modifier = Modifier.padding(all = Dp(value = 8F)),
+                        selected = (text == selectedOption),
+                        modifier = Modifier.padding(all = Dp(value = 8F)),
                         onClick = {
-                            // inside on click method we are setting a
-                            // selected option of our radio buttons.
                             onOptionSelected(text)
                             scope.launch {
                                 dataStoreViewModel.setActiveTheme(text)
                             }
-                            // after clicking a radio button
-                            // we are displaying a toast message.
-                            // Toast.makeText(context, text, Toast.LENGTH_LONG).show()
                         }
                     )
-                    // below line is use to add
-                    // text to our radio buttons.
                     Text(
                         text = text,
                         modifier = Modifier.padding(start = 16.dp),
@@ -194,6 +170,72 @@ fun SimpleRadioButtonComponent(dataStoreViewModel: DataStoreViewModel) {
                 }
             }
         }
-//        Text(text = "Active theme = $activeTheme")
+    }
+}
+
+@Composable
+fun StartupRadioButtons(dataStoreViewModel: DataStoreViewModel) {
+    val startupScreen = dataStoreViewModel.startupScreen.observeAsState().value
+    val scope = rememberCoroutineScope()
+
+
+    val radioOptions = listOf("Daily View", "Tasklist View", "Birthday View")
+    val index = radioOptions.indexOf(
+        when(startupScreen){
+            AppScreens.OverviewScreen.name -> "Daily View"
+            AppScreens.TaskListScreen.name -> "Tasklist View"
+            AppScreens.BirthdayReminderScreen.name -> "Birthday View"
+            else -> "Daily View"
+        }
+    )
+    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[index]) }
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Column {
+            radioOptions.forEach { text ->
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .selectable(
+                            selected = (text == selectedOption),
+                            onClick = {
+                                onOptionSelected(text)
+                                //we have this in total of 2 times, since we can click the radio button AND the Card ??
+                                scope.launch {
+                                    when(text){
+                                        "Daily View" -> dataStoreViewModel.setStartupScreen(AppScreens.OverviewScreen.name)
+                                        "Tasklist View" -> dataStoreViewModel.setStartupScreen(AppScreens.TaskListScreen.name)
+                                        "Birthday View" -> dataStoreViewModel.setStartupScreen(AppScreens.BirthdayReminderScreen.name)
+                                    }
+                                }
+                            }
+                        )
+                        .padding(horizontal = 16.dp)
+                ) {
+                    RadioButton(
+                        selected = (text == selectedOption),
+                        modifier = Modifier.padding(all = Dp(value = 8F)),
+                        onClick = {
+                            onOptionSelected(text)
+                            scope.launch {
+                                when(text){
+                                    "Daily View" -> dataStoreViewModel.setStartupScreen(AppScreens.OverviewScreen.name)
+                                    "Tasklist View" -> dataStoreViewModel.setStartupScreen(AppScreens.TaskListScreen.name)
+                                    "Birthday View" -> dataStoreViewModel.setStartupScreen(AppScreens.BirthdayReminderScreen.name)
+                                }
+                            }
+                        }
+                    )
+                    Text(
+                        text = text,
+                        modifier = Modifier.padding(start = 16.dp),
+                        style = MaterialTheme.typography.body2
+                    )
+
+                }
+            }
+        }
     }
 }
