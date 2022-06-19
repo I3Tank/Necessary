@@ -26,8 +26,8 @@ val Typography = Typography(
 
     //SUBHEADINGS i.e. CONFIGURE TABS
     subtitle1 = TextStyle(
-        fontFamily = FontFamily.Monospace,
-        fontWeight = FontWeight.Light,
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.ExtraLight,
         fontSize = 20.sp
     ),
 

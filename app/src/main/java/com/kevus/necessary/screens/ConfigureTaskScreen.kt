@@ -79,7 +79,7 @@ fun ShowAddTaskMenu(navController: NavController, taskViewModel: TaskViewModel) 
             OutlinedTextField(
                 value = taskName,
                 onValueChange = { value -> taskName = value },
-                label = { Text(text = "Task Name") })
+                label = { Text(text = "Task Name", style = MaterialTheme.typography.subtitle1) })
             //------------------------------------------------------------------------------------------
             //Date Picker
             //code from: https://www.geeksforgeeks.org/date-picker-in-android-using-jetpack-compose/
@@ -126,7 +126,7 @@ fun ShowAddTaskMenu(navController: NavController, taskViewModel: TaskViewModel) 
                 value = taskStartTime,
                 //TODO texteingabe überprüfen
                 onValueChange = { value -> taskStartTime = value },
-                label = { Text(text = "Start") },
+                label = { Text(text = "Start", style = MaterialTheme.typography.subtitle1) },
                 placeholder = { Text(text = "08:30") }
             )
             //------------------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ fun ShowAddTaskMenu(navController: NavController, taskViewModel: TaskViewModel) 
 
             OutlinedTextField(value = taskDuration,
                 onValueChange = { value -> taskDuration = value },
-                label = { Text(text = "Duration") },
+                label = { Text(text = "Duration", style = MaterialTheme.typography.subtitle1) },
                 placeholder = { Text(text = "120") })
             //------------------------------------------------------------------------------------------
             //Save Button
@@ -216,7 +216,7 @@ fun ShowEditTaskMenu(navController: NavController, taskViewModel: TaskViewModel,
                 OutlinedTextField(
                     value = taskName,
                     onValueChange = { value -> taskName = value },
-                    label = { Text(text = "Task Name") })
+                    label = { Text(text = "Task Name", style = MaterialTheme.typography.subtitle1) })
                 //------------------------------------------------------------------------------------------
                 //Date Picker
                 //code from: https://www.geeksforgeeks.org/date-picker-in-android-using-jetpack-compose/
@@ -265,7 +265,7 @@ fun ShowEditTaskMenu(navController: NavController, taskViewModel: TaskViewModel,
                     value = taskStartTime,
                     //TODO texteingabe überprüfen
                     onValueChange = { value -> taskStartTime = value },
-                    label = { Text(text = "Start") },
+                    label = { Text(text = "Start", style = MaterialTheme.typography.subtitle1) },
                     placeholder = { Text(text = "08:30") }
                 )
                 //------------------------------------------------------------------------------------------
@@ -274,7 +274,7 @@ fun ShowEditTaskMenu(navController: NavController, taskViewModel: TaskViewModel,
 
                 OutlinedTextField(value = taskDuration,
                     onValueChange = { value -> taskDuration = value },
-                    label = { Text(text = "Duration") },
+                    label = { Text(text = "Duration", style = MaterialTheme.typography.subtitle1) },
                     placeholder = { Text(text = "120") })
                 //------------------------------------------------------------------------------------------
                 //Save Button

@@ -73,7 +73,7 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
             .fillMaxWidth()
             .padding(10.dp)) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "CONFIGURE TABS", style = MaterialTheme.typography.subtitle1, fontSize = 25.sp)
+                Text(text = "CONFIGURE TABS", style = MaterialTheme.typography.body2, fontSize = 25.sp)
                 Row() {
                     Text(text = "Birthday Reminder", style = MaterialTheme.typography.subtitle2)
                     ScreenCheckBox(dataStoreViewModel = dataStoreViewModel)
@@ -85,7 +85,7 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
             .fillMaxWidth()
             .padding(10.dp)) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "THEMES", style = MaterialTheme.typography.subtitle1, fontSize = 25.sp)
+                Text(text = "THEMES", style = MaterialTheme.typography.body2, fontSize = 25.sp)
                 Row() {
                     ThemeRadioButtons(dataStoreViewModel = dataStoreViewModel)
                 }
@@ -95,7 +95,7 @@ private fun MainContent(dataStoreViewModel: DataStoreViewModel){
             .fillMaxWidth()
             .padding(10.dp)) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "STARTUP SCREEN", style = MaterialTheme.typography.subtitle1, fontSize = 25.sp)
+                Text(text = "STARTUP SCREEN", style = MaterialTheme.typography.body2, fontSize = 25.sp)
                 Row() {
                     StartupRadioButtons(dataStoreViewModel = dataStoreViewModel)
                 }

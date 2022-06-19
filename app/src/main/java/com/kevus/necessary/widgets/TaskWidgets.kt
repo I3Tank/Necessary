@@ -25,15 +25,22 @@ fun TaskBox(
     task: Task,
     onItemClick: (Long?) -> Unit = {}
 ) {
+    val minHeight1= 80
     Card(
         modifier = Modifier
-            .width(200.dp)
-            .height(task.TaskDuration.dp)
-            .padding(2.5.dp)
+            .height(
+                if (task.TaskDuration <= minHeight1) {
+                    minHeight1.dp
+                } else {
+                    task.TaskDuration.dp
+                }
+            )
+            .fillMaxWidth()
+            .padding(50.dp,3.dp,50.dp,3.dp)
             .clickable {
                 onItemClick(task.id)
             },
-        shape = RoundedCornerShape(corner = CornerSize(1.dp)),
+        shape = RoundedCornerShape(corner = CornerSize(3.dp)),
     ) {
         Column(
             modifier = Modifier.padding(5.dp),

@@ -66,24 +66,25 @@ fun BirthdayBox(
 fun AddBirthdayWidget(
     onAddClick: (Birthday) -> Unit = {}
 ){
-    Text(text = "Add a Birthday")
-
+    Column() {
+        Text(text = "Add a Birthday!", modifier = Modifier.align(Alignment.CenterHorizontally))
+    }
     var name by remember { mutableStateOf("") }
     var birthday by remember { mutableStateOf("")}
 
 
     Row {
         OutlinedTextField(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(0.9f),
             value = name,
             onValueChange = { value -> name = value },
-            label = { Text(text = "Name") },
+            label = { Text(text = "Name", style = MaterialTheme.typography.subtitle1) },
         )
         OutlinedTextField(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1.1f),
             value = birthday,
             onValueChange = { value -> birthday = value },
-            label = { Text(text = "Birthday") },
+            label = { Text(text = "Birthday", style = MaterialTheme.typography.subtitle1) },
             placeholder = {Text(text = "14.03.1998")}
         )
     }

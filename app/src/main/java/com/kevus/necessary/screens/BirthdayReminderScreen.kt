@@ -2,6 +2,7 @@ package com.kevus.necessary.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kevus.necessary.models.Birthday
@@ -32,7 +35,18 @@ fun BirthdayReminderScreen(navController: NavController, taskViewModel: TaskView
         Scaffold(
 //            backgroundColor = Color.DarkGray,
             topBar = {
-                TopAppBar(title = { Text(text = "Birthdays") })
+                TopAppBar(){
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "BIRTHDAYS",
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            style = MaterialTheme.typography.body1,
+                            fontStyle = FontStyle.Italic
+                        )
+                    }
+                }
             },
             bottomBar = {
                 BottomNavBar(navController = navController, dataStoreViewModel = dataStoreViewModel)
